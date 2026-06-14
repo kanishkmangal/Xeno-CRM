@@ -24,28 +24,6 @@ export default function LoginPage() {
         {/* Glassmorphism Card container */}
         <div className="bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/80 p-8 rounded-2xl shadow-2xl space-y-6">
           <LoginForm />
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-zinc-800" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-zinc-900/10 px-2 text-zinc-500">
-                Demo access
-              </span>
-            </div>
-          </div>
-
-          <div className="p-4 bg-zinc-950/80 border border-zinc-800/80 rounded-xl space-y-2 text-xs">
-            <div className="flex justify-between">
-              <span className="text-zinc-500">Demo Email:</span>
-              <span className="text-zinc-300 font-mono">admin@crm.com</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">Demo Password:</span>
-              <span className="text-zinc-300 font-mono">adminpassword123</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
