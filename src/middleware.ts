@@ -4,8 +4,10 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   // Read session token cookie directly from requests
   const token =
-    req.cookies.get("next-auth.session-token")?.value ||
-    req.cookies.get("__Secure-next-auth.session-token")?.value;
+  req.cookies.get("authjs.session-token")?.value ||
+  req.cookies.get("__Secure-authjs.session-token")?.value ||
+  req.cookies.get("next-auth.session-token")?.value ||
+  req.cookies.get("__Secure-next-auth.session-token")?.value;
 
   const isLoggedIn = !!token;
   const { nextUrl } = req;

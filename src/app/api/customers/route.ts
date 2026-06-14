@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const customers = await prisma.customer.findMany();
+  const customers = await db.customer.findMany();
 
   return NextResponse.json(customers);
 }

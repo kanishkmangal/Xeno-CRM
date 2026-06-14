@@ -10,22 +10,26 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export const revalidate = 0; // Disable caching so it's always live data
+export const revalidate = 60; // Disable caching so it's always live data
 
 export default async function DashboardPage() {
   // Database queries for real-time CRM stats
-  const totalCustomers = await db.customer.count();
-  const totalOrders = await db.order.count();
-  const totalCampaigns = await db.campaign.count();
-  
-  const revenueAggregation = await db.order.aggregate({
+  const [
+  totalCustomers,
+  totalOrders,
+  totalCampaigns,
+  revenueAggregation,
+  recentCampaigns,
+] = await Promise.all([
+  db.customer.count(),
+  db.order.count(),
+  db.campaign.count(),
+  db.order.aggregate({
     _sum: {
       totalAmount: true,
     },
-  });
-  const totalRevenue = revenueAggregation._sum.totalAmount || 0;
-
-  const recentCampaigns = await db.campaign.findMany({
+  }),
+  db.campaign.findMany({
     take: 5,
     orderBy: {
       createdAt: "desc",
@@ -33,8 +37,9 @@ export default async function DashboardPage() {
     include: {
       segment: true,
     },
-  });
-
+  }),
+]);
+const totalRevenue = revenueAggregation._sum.totalAmount || 0;
   const stats = [
     {
       name: "Total Customers",
@@ -65,7 +70,7 @@ export default async function DashboardPage() {
       bg: "bg-amber-500/10 border-amber-500/20",
     },
   ];
-
+  
   return (
     <div className="space-y-8">
       {/* Header section with AI Callout */}
