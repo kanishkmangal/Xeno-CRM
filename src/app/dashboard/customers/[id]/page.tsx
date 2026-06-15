@@ -128,7 +128,13 @@ export default async function CustomerDetailsPage({
                     <p className="text-sm font-bold text-zinc-200">
                       ₹{order.totalAmount.toLocaleString()}
                     </p>
-                    <span className="inline-block mt-1 text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                    <span className={`inline-block mt-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+                      order.status === "COMPLETED"
+                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                        : order.status === "PENDING"
+                        ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                        : "bg-red-500/10 text-red-400 border-red-500/20"
+                    }`}>
                       {order.status}
                     </span>
                   </div>

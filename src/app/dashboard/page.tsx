@@ -25,6 +25,7 @@ export default async function DashboardPage() {
   db.order.count(),
   db.campaign.count(),
   db.order.aggregate({
+    where: { status: "COMPLETED" },
     _sum: {
       totalAmount: true,
     },
